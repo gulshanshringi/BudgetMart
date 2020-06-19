@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "555878233870",
+    "firebase_url": "https://budgetmart-2aebc.firebaseio.com",
+    "project_id": "budgetmart-2aebc",
+    "storage_bucket": "budgetmart-2aebc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555878233870:android:ab7802b663c162138cc95f",
+        "android_client_info": {
+          "package_name": "com.jsrd.budgetmart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "555878233870-7bnkg9kjgooqouhn7e17jg3ufts57glh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw1Lhv_w2FnXMAi7VSci2--bbC1I82mfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "555878233870-7bnkg9kjgooqouhn7e17jg3ufts57glh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
