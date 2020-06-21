@@ -1,5 +1,6 @@
 package com.jsrd.budgetmart.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,13 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.jsrd.budgetmart.activity.CheckoutActivity;
 import com.jsrd.budgetmart.interfaces.CartCallBack;
 import com.jsrd.budgetmart.R;
 import com.jsrd.budgetmart.adapter.CartAdapter;
+import com.jsrd.budgetmart.model.Address;
 import com.jsrd.budgetmart.model.Cart;
 import com.jsrd.budgetmart.model.Product;
 import com.jsrd.budgetmart.utils.FirestoreFirebase;
@@ -28,9 +32,13 @@ import java.util.ArrayList;
 public class CartFragment extends Fragment {
 
     private RecyclerView cartItemRecyclerView;
-    private static LinearLayout billAmountLayout,emptyCartLayout;
+    private static LinearLayout billAmountLayout, emptyCartLayout;
     private static TextView cartItemPrice, cartItemDiscount, cartItemDeliveryFee, cartItemTotalAmount;
     public static ShimmerFrameLayout cartShimmerContainer;
+    private LinearLayout addressLayout;
+    private ArrayList<Address> addresses;
+    public static LinearLayout cartLayout;
+
     public CartFragment() {
         // Required empty public constructor
     }
@@ -53,10 +61,22 @@ public class CartFragment extends Fragment {
         cartItemDiscount = getView().findViewById(R.id.cartItemDiscount);
         cartItemDeliveryFee = getView().findViewById(R.id.cartItemDeliveryFee);
         cartItemTotalAmount = getView().findViewById(R.id.cartItemTotalAmount);
-        cartItemRecyclerView = getView().findViewById(R.id.cartItemRecyclerView);
+        cartItemRecyclerView = getView().findViewById(R.id.productListRecyclerView);
         emptyCartLayout = getView().findViewById(R.id.emptyCartLayout);
-
         cartShimmerContainer = getView().findViewById(R.id.cartShimmerContainer);
+        addressLayout = getView().findViewById(R.id.addressLayout);
+        cartLayout = getView().findViewById(R.id.cartLayout);
+
+        Button checkoutBtn = getView().findViewById(R.id.chekoutBtn);
+        checkoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startCheckoutActivity();
+            }
+        });
+
+        cartLayout.setVisibility(View.GONE);
+        cartShimmerContainer.setVisibility(View.VISIBLE);
         cartShimmerContainer.startShimmerAnimation();
 
         cartItemRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -69,9 +89,11 @@ public class CartFragment extends Fragment {
                 if (cartList.size() > 0) {
                     CartAdapter adapter = new CartAdapter(getContext(), cartList);
                     cartItemRecyclerView.setAdapter(adapter);
-                }else {
+                    cartLayout.setVisibility(View.VISIBLE);
+                } else {
                     cartShimmerContainer.setVisibility(View.GONE);
                     cartShimmerContainer.stopShimmerAnimation();
+                    cartLayout.setVisibility(View.GONE);
                     emptyCartLayout.setVisibility(View.VISIBLE);
                 }
             }
@@ -92,10 +114,10 @@ public class CartFragment extends Fragment {
             cartItemDiscount.setText(Integer.toString(discount));
             cartItemDeliveryFee.setText("0");
             cartItemTotalAmount.setText(Integer.toString(totalPayable));
-            billAmountLayout.setVisibility(View.VISIBLE);
+            cartLayout.setVisibility(View.VISIBLE);
             emptyCartLayout.setVisibility(View.GONE);
-        }else {
-            billAmountLayout.setVisibility(View.GONE);
+        } else {
+            cartLayout.setVisibility(View.GONE);
             emptyCartLayout.setVisibility(View.VISIBLE);
         }
         cartShimmerContainer.setVisibility(View.GONE);
@@ -103,5 +125,9 @@ public class CartFragment extends Fragment {
 
     }
 
+    public void startCheckoutActivity() {
+        Intent checkoutIntent = new Intent(getContext(), CheckoutActivity.class);
+        startActivity(checkoutIntent);
 
+    }
 }

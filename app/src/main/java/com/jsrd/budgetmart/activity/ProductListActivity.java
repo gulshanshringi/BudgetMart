@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class ProductListActivity extends AppCompatActivity {
 
-    private RecyclerView productRecyclerView;
+    private RecyclerView productListRecyclerView;
     private ShimmerFrameLayout productListShimmerContainer;
 
     @Override
@@ -29,9 +29,9 @@ public class ProductListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
-        productRecyclerView = findViewById(R.id.productRecyclerView);
-        productRecyclerView.setHasFixedSize(true);
-        productRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        productListRecyclerView = findViewById(R.id.productListRecyclerView);
+        productListRecyclerView.setHasFixedSize(true);
+        productListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         productListShimmerContainer = findViewById(R.id.productListShimmerContainer);
 
         productListShimmerContainer.startShimmerAnimation();
@@ -48,7 +48,7 @@ public class ProductListActivity extends AppCompatActivity {
                     public void onComplete(ArrayList<Cart> cartList) {
                         ProductRecyclerViewListAdapter productAdapter =
                                 new ProductRecyclerViewListAdapter(ProductListActivity.this, products, cartList);
-                        productRecyclerView.setAdapter(productAdapter);
+                        productListRecyclerView.setAdapter(productAdapter);
                         productListShimmerContainer.stopShimmerAnimation();
                         productListShimmerContainer.setVisibility(View.GONE);
                     }

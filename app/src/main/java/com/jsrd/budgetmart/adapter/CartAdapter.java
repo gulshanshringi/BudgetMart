@@ -143,10 +143,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                             }
                         });
                     } else {
+                        CartFragment.cartLayout.setVisibility(View.GONE);
                         ff.removeProductFromCart(cart.getCartId());
                         cartItems.remove(getAdapterPosition());
-                        CartAdapter.this.notifyDataSetChanged();
                         itemWeightProgressBar.setVisibility(View.GONE);
+                        CartAdapter.this.notifyDataSetChanged();
                         updateCart();
                     }
                 }
