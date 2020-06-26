@@ -41,33 +41,13 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="20dp"
             android:layout_weight="0"
-            android:text="Checkout"
-            android:background="@color/colorPrimary"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/emptyCartLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_empty_cart" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:gravity="center"
-            android:text="Your Cart is Empty\nAdd Something from the menu" />
+            android:background="@color/colorPrimary"
+            android:text="Checkout" />
 
 
     </LinearLayout>
+
+    <include layout="@layout/empty_cart_layout" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/cartShimmerContainer"

@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.jsrd.budgetmart.activity.AddressActivity;
 import com.jsrd.budgetmart.activity.CheckoutActivity;
 import com.jsrd.budgetmart.interfaces.CartCallBack;
 import com.jsrd.budgetmart.R;
@@ -38,6 +40,7 @@ public class CartFragment extends Fragment {
     private LinearLayout addressLayout;
     private ArrayList<Address> addresses;
     public static LinearLayout cartLayout;
+    private Button addressBtn;
 
     public CartFragment() {
         // Required empty public constructor
@@ -66,6 +69,8 @@ public class CartFragment extends Fragment {
         cartShimmerContainer = getView().findViewById(R.id.cartShimmerContainer);
         addressLayout = getView().findViewById(R.id.addressLayout);
         cartLayout = getView().findViewById(R.id.cartLayout);
+        addressBtn = getView().findViewById(R.id.addAddressBtn);
+
 
         Button checkoutBtn = getView().findViewById(R.id.chekoutBtn);
         checkoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +103,17 @@ public class CartFragment extends Fragment {
                 }
             }
         });
+
+
+        addressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addressintent = new Intent(getContext(), AddressActivity.class);
+                startActivity(addressintent);
+            }
+        });
+
+
     }
 
     public static void updateBillingDetails(ArrayList<Cart> cartItems) {

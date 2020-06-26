@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:layout_width="match_parent"
@@ -33,7 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Change Address" />
+            android:text="Change Address"
+            android:background="@color/colorPrimary"/>
 
     </LinearLayout>
 
