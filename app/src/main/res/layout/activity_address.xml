@@ -29,6 +29,7 @@
                 android:textSize="18dp" />
 
             <EditText
+                android:id="@+id/nameEditTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -54,6 +55,7 @@
                 android:textSize="18dp" />
 
             <EditText
+                android:id="@+id/addressEditTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -79,6 +81,7 @@
                 android:textSize="18dp" />
 
             <EditText
+                android:id="@+id/pincodeEditTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -104,6 +107,7 @@
                 android:textSize="18dp" />
 
             <EditText
+                android:id="@+id/cityEditTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -129,6 +133,7 @@
                 android:textSize="18dp" />
 
             <EditText
+                android:id="@+id/stateEditTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -159,7 +164,9 @@
                 android:layout_weight="1"
                 android:hint="Enter Country"
                 android:lines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="INDIA"
+                android:editable="false"/>
 
         </LinearLayout>
 
@@ -179,6 +186,7 @@
                 android:textSize="18dp" />
 
             <EditText
+                android:id="@+id/mobileNoEditTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -189,6 +197,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/saveAddressBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

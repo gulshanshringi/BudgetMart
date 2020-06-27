@@ -5,7 +5,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,10 +17,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.jsrd.budgetmart.interfaces.AddressCallBack;
 import com.jsrd.budgetmart.interfaces.CartCallBack;
-import com.jsrd.budgetmart.adapter.ProductRecyclerViewListAdapter;
-import com.jsrd.budgetmart.interfaces.ProductAddedCallBack;
+import com.jsrd.budgetmart.interfaces.DataAddedCallBack;
 import com.jsrd.budgetmart.interfaces.ProductCallBack;
+import com.jsrd.budgetmart.model.Address;
 import com.jsrd.budgetmart.model.Cart;
 import com.jsrd.budgetmart.model.Product;
 
@@ -85,7 +85,7 @@ public class FirestoreFirebase {
                 });
     }
 
-    public void addProductToCart(String docId, Product product, String quantity, final ProductAddedCallBack callBack) {
+    public void addProductToCart(String docId, Product product, String quantity, final DataAddedCallBack callBack) {
         Map<String, String> cartData = new HashMap<>();
         cartData.put("ProductId", String.valueOf(product.getId()));
         cartData.put("Quantity", quantity);
@@ -160,7 +160,6 @@ public class FirestoreFirebase {
                         }
                     }
                 });
-        ;
     }
 
     public void removeProductFromCart(String docId) {
@@ -177,4 +176,69 @@ public class FirestoreFirebase {
         });
 
     }
+
+    public void addAddressIntoFirebase(String docId, Address address, final DataAddedCallBack callBack) {
+        Map<String, String> addressData = new HashMap<>();
+        addressData.put("Name", address.getName());
+        addressData.put("Address", address.getAddress());
+        addressData.put("Pincode", address.getPincode());
+        addressData.put("City", address.getCity());
+        addressData.put("State", address.getState());
+        addressData.put("Country", address.getCountry());
+        addressData.put("Mobile Number", address.getMobileNo());
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DocumentReference collRef;
+        if (docId != null) {
+            collRef = db.collection("users").
+                    document(user.getPhoneNumber()).
+                    collection("Addresses").
+                    document(docId);
+        } else {
+            collRef = db.collection("users").
+                    document(user.getPhoneNumber()).
+                    collection("Addresses").
+                    document();
+        }
+
+        collRef.set(addressData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                callBack.onSuccess(true);
+                Toast.makeText(mContext, "Address saved", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getAddressFromFirebase(final AddressCallBack callBack){
+        final ArrayList<Cart> cartList = new ArrayList<>();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        db.collection("users/" + user.getPhoneNumber() + "/Addresses").
+                get().
+                addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Address> addresses = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String addressId = document.getId();
+                                String name = (String) document.get("Name");
+                                String add = (String) document.get("Address");
+                                String pincode = (String) document.get("Pincode");
+                                String city = (String) document.get("City");
+                                String state = (String) document.get("State");
+                                String country = (String) document.get("Country");
+                                String mobileNo = (String) document.get("Mobile Number");
+
+                                Address address = new Address(addressId,name,add,pincode,city,state,country,mobileNo);
+                                addresses.add(address);
+                            }
+
+                            callBack.onComplete(addresses);
+                        }
+                    }
+                });
+    }
+
+
 }

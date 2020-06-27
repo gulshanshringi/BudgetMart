@@ -3,14 +3,11 @@ package com.jsrd.budgetmart.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,11 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.FadingCircle;
-import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.jsrd.budgetmart.R;
 import com.jsrd.budgetmart.activity.ProductDetailsActivity;
-import com.jsrd.budgetmart.interfaces.CartCallBack;
-import com.jsrd.budgetmart.interfaces.ProductAddedCallBack;
+import com.jsrd.budgetmart.interfaces.DataAddedCallBack;
 import com.jsrd.budgetmart.model.Cart;
 import com.jsrd.budgetmart.model.Product;
 import com.jsrd.budgetmart.utils.FirestoreFirebase;
@@ -128,7 +123,7 @@ public class ProductRecyclerViewListAdapter extends RecyclerView.Adapter<Product
                 @Override
                 public void onClick(View v) {
                     Product product = productList.get(getAdapterPosition());
-                    ff.addProductToCart(null, product, "1", new ProductAddedCallBack() {
+                    ff.addProductToCart(null, product, "1", new DataAddedCallBack() {
                         @Override
                         public void onSuccess(boolean successful) {
                             if (successful) {
@@ -154,7 +149,7 @@ public class ProductRecyclerViewListAdapter extends RecyclerView.Adapter<Product
                     for (Cart cart : cartArrayList) {
                         if (product.getId() == cart.getProduct().getId()) {
                             incrementedWeight = String.valueOf(Integer.parseInt(itemWeight.getText().toString()) + 1);
-                            ff.addProductToCart(cart.getCartId(), product, incrementedWeight, new ProductAddedCallBack() {
+                            ff.addProductToCart(cart.getCartId(), product, incrementedWeight, new DataAddedCallBack() {
                                 @Override
                                 public void onSuccess(boolean successful) {
                                     if (successful) {
@@ -183,7 +178,7 @@ public class ProductRecyclerViewListAdapter extends RecyclerView.Adapter<Product
                         for (Cart cart : cartArrayList) {
                             if (product.getId() == cart.getProduct().getId()) {
                                 decrementedWeight = String.valueOf(Integer.parseInt(itemWeight.getText().toString()) - 1);
-                                ff.addProductToCart(cart.getCartId(), product, decrementedWeight, new ProductAddedCallBack() {
+                                ff.addProductToCart(cart.getCartId(), product, decrementedWeight, new DataAddedCallBack() {
                                     @Override
                                     public void onSuccess(boolean successful) {
                                         itemWeight.setText(decrementedWeight);

@@ -1,11 +1,13 @@
 package com.jsrd.budgetmart.fragments;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,11 +17,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.jsrd.budgetmart.activity.AddressActivity;
 import com.jsrd.budgetmart.activity.CheckoutActivity;
+import com.jsrd.budgetmart.interfaces.AddressCallBack;
 import com.jsrd.budgetmart.interfaces.CartCallBack;
 import com.jsrd.budgetmart.R;
 import com.jsrd.budgetmart.adapter.CartAdapter;
@@ -33,14 +37,17 @@ import java.util.ArrayList;
 
 public class CartFragment extends Fragment {
 
+    FirestoreFirebase ff;
     private RecyclerView cartItemRecyclerView;
     private static LinearLayout billAmountLayout, emptyCartLayout;
     private static TextView cartItemPrice, cartItemDiscount, cartItemDeliveryFee, cartItemTotalAmount;
     public static ShimmerFrameLayout cartShimmerContainer;
-    private LinearLayout addressLayout;
-    private ArrayList<Address> addresses;
+
     public static LinearLayout cartLayout;
-    private Button addressBtn;
+
+
+
+    private boolean isPaused = false;
 
     public CartFragment() {
         // Required empty public constructor
@@ -67,9 +74,9 @@ public class CartFragment extends Fragment {
         cartItemRecyclerView = getView().findViewById(R.id.productListRecyclerView);
         emptyCartLayout = getView().findViewById(R.id.emptyCartLayout);
         cartShimmerContainer = getView().findViewById(R.id.cartShimmerContainer);
-        addressLayout = getView().findViewById(R.id.addressLayout);
         cartLayout = getView().findViewById(R.id.cartLayout);
-        addressBtn = getView().findViewById(R.id.addAddressBtn);
+
+
 
 
         Button checkoutBtn = getView().findViewById(R.id.chekoutBtn);
@@ -87,7 +94,29 @@ public class CartFragment extends Fragment {
         cartItemRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         cartItemRecyclerView.setHasFixedSize(true);
 
-        FirestoreFirebase ff = new FirestoreFirebase(getContext());
+        setCartItems();
+
+
+
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isPaused = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isPaused) {
+            Toast.makeText(getContext(), "Fragment Resumed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setCartItems() {
+        ff = new FirestoreFirebase(getContext());
         ff.getProductsFromCart(new CartCallBack() {
             @Override
             public void onComplete(ArrayList<Cart> cartList) {
@@ -103,18 +132,8 @@ public class CartFragment extends Fragment {
                 }
             }
         });
-
-
-        addressBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addressintent = new Intent(getContext(), AddressActivity.class);
-                startActivity(addressintent);
-            }
-        });
-
-
     }
+
 
     public static void updateBillingDetails(ArrayList<Cart> cartItems) {
         if (cartItems.size() > 0) {
@@ -144,6 +163,5 @@ public class CartFragment extends Fragment {
     public void startCheckoutActivity() {
         Intent checkoutIntent = new Intent(getContext(), CheckoutActivity.class);
         startActivity(checkoutIntent);
-
     }
 }

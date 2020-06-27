@@ -26,7 +26,7 @@
 
                 <include layout="@layout/product_list_layout" />
 
-                <include layout="@layout/address_layout" />
+
 
                 <include layout="@layout/price_details_layout" />
 

@@ -11,108 +11,61 @@
         android:background="#ffffff"
         android:orientation="vertical"
         android:padding="16dp"
-        app:behavior_hideable="false"
-        app:behavior_peekHeight="90dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         android:visibility="visible"
-        >
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="1000dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_margin="5dp"
+            android:gravity="center_vertical"
+            >
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:orientation="vertical">
+                android:background="@drawable/ic_close"
+                android:padding="5dp"
+                />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dandelion Chocolate"
-                    android:textColor="#000000"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/addNewAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add New"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/colorBlack"
+                android:padding="5dp"
+                />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
+        </RelativeLayout>
 
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="4.7" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="(51)" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="#5d5d5d" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="12 min away"
-                    android:textColor="#5692F5" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="#5d5d5d" />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:drawablePadding="16dp"
-            android:text="740 Valencia St, San Fracisco, CA" />
+            android:layout_margin="10dp"
+            android:text="Select Address"
+            android:textColor="@color/colorBlack"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:drawablePadding="16dp"
-            android:text="(415) 349-0942" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:drawablePadding="16dp"
-            android:text="Wed, 10 AM - 9 PM" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/addressRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="#000"
-            android:text="PROCEED PAYMENT"
-            android:textColor="#fff" />
+            android:text="Select"
+            android:background="@color/colorPrimary"
+            android:layout_margin="10dp"
+            />
+
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

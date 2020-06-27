@@ -18,7 +18,7 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 import com.jsrd.budgetmart.R;
 import com.jsrd.budgetmart.fragments.CartFragment;
 import com.jsrd.budgetmart.interfaces.CartCallBack;
-import com.jsrd.budgetmart.interfaces.ProductAddedCallBack;
+import com.jsrd.budgetmart.interfaces.DataAddedCallBack;
 import com.jsrd.budgetmart.model.Cart;
 import com.jsrd.budgetmart.utils.FirestoreFirebase;
 import com.jsrd.budgetmart.utils.StorageFirebase;
@@ -104,7 +104,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     itemWeightProgressBar.setVisibility(View.VISIBLE);
                     Cart cart = cartItems.get(getAdapterPosition());
                     incrementedWeight = String.valueOf(Integer.parseInt(itemWeight.getText().toString()) + 1);
-                    ff.addProductToCart(cart.getCartId(), cart.getProduct(), incrementedWeight, new ProductAddedCallBack() {
+                    ff.addProductToCart(cart.getCartId(), cart.getProduct(), incrementedWeight, new DataAddedCallBack() {
                         @Override
                         public void onSuccess(boolean successful) {
                             if (successful) {
@@ -129,7 +129,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     Cart cart = cartItems.get(getAdapterPosition());
                     if (Integer.parseInt(itemWeight.getText().toString()) > 1) {
                         decrementedWeight = String.valueOf(Integer.parseInt(itemWeight.getText().toString()) - 1);
-                        ff.addProductToCart(cart.getCartId(), cart.getProduct(), decrementedWeight, new ProductAddedCallBack() {
+                        ff.addProductToCart(cart.getCartId(), cart.getProduct(), decrementedWeight, new DataAddedCallBack() {
                             @Override
                             public void onSuccess(boolean successful) {
                                 itemWeight.setText(decrementedWeight);
