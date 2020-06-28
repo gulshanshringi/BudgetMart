@@ -2,6 +2,7 @@ package com.jsrd.budgetmart.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -53,7 +54,9 @@ public class AddressActivity extends AppCompatActivity {
                                         ff.addAddressIntoFirebase(null, address, new DataAddedCallBack() {
                                             @Override
                                             public void onSuccess(boolean successful) {
-
+                                                Intent checkoutActivityintent = new Intent(AddressActivity.this,CheckoutActivity.class);
+                                                startActivity(checkoutActivityintent);
+                                                finish();
                                             }
 
                                             @Override

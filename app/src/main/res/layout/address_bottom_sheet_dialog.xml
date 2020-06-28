@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+
+    <RelativeLayout
         android:id="@+id/addressBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,59 +14,71 @@
         android:padding="16dp"
         android:visibility="visible"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="1000dp"
+        app:behavior_peekHeight="500dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="center_vertical"
-            >
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/closeBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_close"
+                    android:padding="5dp" />
+
+                <TextView
+                    android:id="@+id/addNewAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    android:text="Add New"
+                    android:textColor="@color/colorBlack" />
+
+            </RelativeLayout>
+
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_close"
-                android:padding="5dp"
-                />
-
-            <TextView
-                android:id="@+id/addNewAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add New"
-                android:layout_alignParentRight="true"
+                android:layout_margin="10dp"
+                android:text="Select Address"
                 android:textColor="@color/colorBlack"
-                android:padding="5dp"
-                />
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-        </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/addressRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp" />
 
+            <Button
+                android:id="@+id/selectAddressBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
+                android:text="Select" />
 
-        <TextView
-            android:layout_width="match_parent"
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/addressProgressBar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Select Address"
-            android:textColor="@color/colorBlack"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:layout_centerInParent="true"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/addressRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"/>
+    </RelativeLayout>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select"
-            android:background="@color/colorPrimary"
-            android:layout_margin="10dp"
-            />
-
-    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

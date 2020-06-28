@@ -46,7 +46,6 @@ public class CartFragment extends Fragment {
     public static LinearLayout cartLayout;
 
 
-
     private boolean isPaused = false;
 
     public CartFragment() {
@@ -77,8 +76,6 @@ public class CartFragment extends Fragment {
         cartLayout = getView().findViewById(R.id.cartLayout);
 
 
-
-
         Button checkoutBtn = getView().findViewById(R.id.chekoutBtn);
         checkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,22 +94,6 @@ public class CartFragment extends Fragment {
         setCartItems();
 
 
-
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        isPaused = true;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (isPaused) {
-            Toast.makeText(getContext(), "Fragment Resumed", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void setCartItems() {

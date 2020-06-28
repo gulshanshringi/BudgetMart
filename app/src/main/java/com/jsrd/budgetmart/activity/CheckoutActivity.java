@@ -2,6 +2,7 @@ package com.jsrd.budgetmart.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.ybq.android.spinkit.sprite.Sprite;
@@ -42,7 +44,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private Button addressBtn, changeAddressBtn;
 
     BottomSheetBehavior bottomSheetBehavior;
-    LinearLayout addressBottomSheet;
+    RelativeLayout addressBottomSheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class CheckoutActivity extends AppCompatActivity {
         checkoutProgressBar.setIndeterminateDrawable(threeBounce);
 
         updateBillingDetails();
-        setAddress();
+        setAddress(0);
         setBottomSheetBehavior();
 
 
@@ -107,12 +109,12 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
 
-    private void setAddress() {
+    public void setAddress(final int selectedAddress) {
         ff.getAddressFromFirebase(new AddressCallBack() {
             @Override
             public void onComplete(ArrayList<Address> addresses) {
                 if (addresses.size() > 0) {
-                    addressTxt.setText(addresses.get(0).toString());
+                    addressTxt.setText(addresses.get(selectedAddress).toString());
                     addressLayout.setVisibility(View.VISIBLE);
                     addressBtn.setVisibility(View.GONE);
                 }
