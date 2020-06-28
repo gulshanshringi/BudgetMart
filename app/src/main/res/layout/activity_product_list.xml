@@ -1,37 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ProductListActivity">
+    tools:context=".activity.ProductListActivity"
+    android:orientation="vertical">
 
-    <include layout="@layout/product_list_layout" />
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/productListShimmerContainer"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/productListToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
-        <LinearLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/product_list_layout" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/productListShimmerContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/productListToolbar"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-            <include layout="@layout/cart_placeholder_layout" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <include layout="@layout/cart_placeholder_layout" />
+                <include layout="@layout/cart_placeholder_layout" />
 
-            <include layout="@layout/cart_placeholder_layout" />
+                <include layout="@layout/cart_placeholder_layout" />
 
-            <include layout="@layout/cart_placeholder_layout" />
+                <include layout="@layout/cart_placeholder_layout" />
 
-            <include layout="@layout/cart_placeholder_layout" />
-        </LinearLayout>
+                <include layout="@layout/cart_placeholder_layout" />
 
-    </com.facebook.shimmer.ShimmerFrameLayout>
+                <include layout="@layout/cart_placeholder_layout" />
+            </LinearLayout>
 
-</RelativeLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </RelativeLayout>
+</LinearLayout>

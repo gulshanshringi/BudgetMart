@@ -1,6 +1,7 @@
 package com.jsrd.budgetmart.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,11 +19,21 @@ public class AddressActivity extends AppCompatActivity {
 
     private EditText nameEditTxt, addressEditTxt, pincodeEditTxt, cityEditTxt, stateEditTxt, mobileNoEditTxt;
     private Button saveAddressBtn;
+    private Toolbar addressActivityToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
+
+
+        //setting up toolbar
+        addressActivityToolbar = findViewById(R.id.addressActivityToolbar);
+        addressActivityToolbar.setTitle("Add New Address");
+        setSupportActionBar(addressActivityToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         nameEditTxt = findViewById(R.id.nameEditTxt);
         addressEditTxt = findViewById(R.id.addressEditTxt);
@@ -54,7 +65,7 @@ public class AddressActivity extends AppCompatActivity {
                                         ff.addAddressIntoFirebase(null, address, new DataAddedCallBack() {
                                             @Override
                                             public void onSuccess(boolean successful) {
-                                                Intent checkoutActivityintent = new Intent(AddressActivity.this,CheckoutActivity.class);
+                                                Intent checkoutActivityintent = new Intent(AddressActivity.this, CheckoutActivity.class);
                                                 startActivity(checkoutActivityintent);
                                                 finish();
                                             }
@@ -86,5 +97,11 @@ public class AddressActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

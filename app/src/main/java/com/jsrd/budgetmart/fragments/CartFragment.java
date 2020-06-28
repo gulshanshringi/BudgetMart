@@ -23,6 +23,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.jsrd.budgetmart.activity.AddressActivity;
 import com.jsrd.budgetmart.activity.CheckoutActivity;
+import com.jsrd.budgetmart.activity.MainActivity;
 import com.jsrd.budgetmart.interfaces.AddressCallBack;
 import com.jsrd.budgetmart.interfaces.CartCallBack;
 import com.jsrd.budgetmart.R;
@@ -64,6 +65,7 @@ public class CartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((MainActivity)getActivity()).activityMainToolbar.setTitle("My Cart");
 
         billAmountLayout = getView().findViewById(R.id.billAmountLayout);
         cartItemPrice = getView().findViewById(R.id.cartItemPrice);

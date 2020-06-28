@@ -1,11 +1,15 @@
 package com.jsrd.budgetmart.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -23,17 +27,25 @@ public class ProductListActivity extends AppCompatActivity {
 
     private RecyclerView productListRecyclerView;
     private ShimmerFrameLayout productListShimmerContainer;
+    private Toolbar productListToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
+        productListToolbar = findViewById(R.id.productListToolbar);
+        productListToolbar.setTitle("Product List");
+        setSupportActionBar(productListToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+
         productListRecyclerView = findViewById(R.id.productListRecyclerView);
         productListRecyclerView.setHasFixedSize(true);
         productListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         productListShimmerContainer = findViewById(R.id.productListShimmerContainer);
-
         productListShimmerContainer.startShimmerAnimation();
 
 
@@ -55,5 +67,11 @@ public class ProductListActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

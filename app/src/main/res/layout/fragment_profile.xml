@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.AccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/userAccountUserDetail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp">
 
-</FrameLayout>
+
+        <TextView
+            android:id="@+id/nameIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/roundshape"
+            android:gravity="center"
+            android:text="A"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Name"
+                android:textColor="@color/colorBlack"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="**********"
+                android:textColor="@color/colorBlack"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userAccountUserDetail"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/ic_name_icon"
+            android:drawableRight="@drawable/forward_icon"
+            android:text="Update Name"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/ic_email_icon"
+            android:drawableRight="@drawable/forward_icon"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="Update Email ID"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/ic_password_icon"
+            android:drawableRight="@drawable/forward_icon"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="Update Password"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/logoutBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/ic_logout_icon"
+            android:drawableRight="@drawable/forward_icon"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:text="Logout"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

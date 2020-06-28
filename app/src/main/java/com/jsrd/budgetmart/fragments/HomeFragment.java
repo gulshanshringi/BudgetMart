@@ -21,6 +21,7 @@ import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.jsrd.budgetmart.activity.MainActivity;
 import com.jsrd.budgetmart.adapter.CategoryRecyclerViewAdapter;
 import com.jsrd.budgetmart.adapter.ProductRecyclerViewGridAdapter;
 import com.jsrd.budgetmart.interfaces.ProductCallBack;
@@ -55,6 +56,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        ((MainActivity)getActivity()).activityMainToolbar.setTitle("Budget Mart");
 
         mainLayout = getView().findViewById(R.id.mainLayout);
         homeShimmerContainer = getView().findViewById(R.id.homeShimmerContainer);

@@ -7,11 +7,19 @@
     android:orientation="vertical"
     tools:context=".activity.CheckoutActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/checkoutActivityToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
+
     <RelativeLayout
         android:id="@+id/checkoutLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_below="@id/checkoutActivityToolbar">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.jsrd.budgetmart.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,7 +34,9 @@ import java.util.ArrayList;
 
 public class CheckoutActivity extends AppCompatActivity {
 
-    FirestoreFirebase ff;
+    private Toolbar checkoutActivityToolbar;
+
+    private FirestoreFirebase ff;
     private Button proceedBtn;
     private static TextView cartItemPrice, cartItemDiscount, cartItemDeliveryFee, cartItemTotalAmount;
     private RelativeLayout checkoutLayout;
@@ -46,10 +49,19 @@ public class CheckoutActivity extends AppCompatActivity {
     BottomSheetBehavior bottomSheetBehavior;
     RelativeLayout addressBottomSheet;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+
+        //setting up toolbar
+        checkoutActivityToolbar = findViewById(R.id.checkoutActivityToolbar);
+        checkoutActivityToolbar.setTitle("Checkout");
+        setSupportActionBar(checkoutActivityToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         proceedBtn = findViewById(R.id.proceedBtn);
         cartItemPrice = findViewById(R.id.cartItemPrice);
@@ -95,19 +107,16 @@ public class CheckoutActivity extends AppCompatActivity {
         changeAddressBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                } else {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                }
-
-                */
-               showBottomSheet();
+                showBottomSheet();
             }
         });
-
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
     public void setAddress(final int selectedAddress) {
         ff.getAddressFromFirebase(new AddressCallBack() {
@@ -125,6 +134,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private void startPaymentActivity() {
         Intent paymentIntent = new Intent(this, PaymentActivity.class);
         startActivity(paymentIntent);
+        finish();
     }
 
     private void updateBillingDetails() {
@@ -182,6 +192,6 @@ public class CheckoutActivity extends AppCompatActivity {
 
     public void showBottomSheet() {
         AddressBottomSheetDialogFragment addressBottomSheetDialogFragment = new AddressBottomSheetDialogFragment();
-        addressBottomSheetDialogFragment.show(getSupportFragmentManager(),"AddressBottomSheetDialogFragment");
+        addressBottomSheetDialogFragment.show(getSupportFragmentManager(), "AddressBottomSheetDialogFragment");
     }
 }

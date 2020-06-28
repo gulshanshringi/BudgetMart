@@ -28,7 +28,7 @@
         android:id="@+id/account"
         android:title="Account"
         app:showAsAction="always"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/user_account"
         />
 
 </menu>

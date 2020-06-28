@@ -1,6 +1,7 @@
 package com.jsrd.budgetmart.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -19,12 +20,16 @@ public class MainActivity extends AppCompatActivity {
     private FavoritesFragment favoritesFragment;
     private CartFragment cartFragment;
     private AccountFragment accountFragment;
-
+    public Toolbar activityMainToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        activityMainToolbar = (Toolbar) findViewById(R.id.activityMainToolbar);
+        activityMainToolbar.setTitle("Budget Mart");
+        setSupportActionBar(activityMainToolbar);
 
         setUpBottomNavigationBar();
 
