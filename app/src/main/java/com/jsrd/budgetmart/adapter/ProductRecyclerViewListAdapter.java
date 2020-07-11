@@ -19,6 +19,7 @@ import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.FadingCircle;
 import com.jsrd.budgetmart.R;
 import com.jsrd.budgetmart.activity.ProductDetailsActivity;
+import com.jsrd.budgetmart.interfaces.CartCallBack;
 import com.jsrd.budgetmart.interfaces.DataAddedCallBack;
 import com.jsrd.budgetmart.model.Cart;
 import com.jsrd.budgetmart.model.Product;
@@ -58,7 +59,7 @@ public class ProductRecyclerViewListAdapter extends RecyclerView.Adapter<Product
         StorageFirebase sf = new StorageFirebase(mContext);
         sf.setImageToImageView(product.getImage(), holder.itemImage);
         holder.itemName.setText(product.getName());
-        holder.itemPrice.setText(Integer.toString(product.getPrice()) + " Rs Per kg");
+        holder.itemPrice.setText(product.getPrice() + " Rs Per kg");
 
         if (cartArrayList.size() > 0) {
             for (Cart cart : cartArrayList) {
@@ -107,17 +108,6 @@ public class ProductRecyclerViewListAdapter extends RecyclerView.Adapter<Product
             fadingCircle.setColor(Color.BLUE);
             itemWeightProgressBar.setIndeterminateDrawable(fadingCircle);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent itemDetailsIntent = new Intent(mContext, ProductDetailsActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("Item", (Serializable) productList.get(getAdapterPosition()));
-                    itemDetailsIntent.putExtra("Item", bundle);
-                    mContext.startActivity(itemDetailsIntent);
-                }
-            });
-
 
             itemAddToCartBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -127,9 +117,7 @@ public class ProductRecyclerViewListAdapter extends RecyclerView.Adapter<Product
                         @Override
                         public void onSuccess(boolean successful) {
                             if (successful) {
-                                itemAddToCartBtn.setVisibility(View.GONE);
-                                itemIncrDecrLayout.setVisibility(View.VISIBLE);
-                                //getProductFromCart();
+                                getProductFromCart();
                             }
                         }
 
@@ -210,6 +198,17 @@ public class ProductRecyclerViewListAdapter extends RecyclerView.Adapter<Product
             });
 
 
+        }
+
+        private void getProductFromCart() {
+            ff.getProductsFromCart(new CartCallBack() {
+                @Override
+                public void onComplete(ArrayList<Cart> cartList) {
+                    cartArrayList = cartList;
+                    itemAddToCartBtn.setVisibility(View.GONE);
+                    itemIncrDecrLayout.setVisibility(View.VISIBLE);
+                }
+            });
         }
     }
 
