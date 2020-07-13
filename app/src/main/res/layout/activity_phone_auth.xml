@@ -4,30 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.PhoneAuthActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.PhoneAuthActivity">
 
-    <EditText
-        android:id="@+id/numberEditText"
+    <ViewAnimator
+        android:id="@+id/phoneAuthViewAnimator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="+911234567890"
-        android:editable="false"
-        />
+        android:layout_height="match_parent">
+        <include layout="@layout/mobile_verification_layout" />
 
+        <include layout="@layout/otp_verification_layout" />
 
-    <EditText
-        android:id="@+id/passwordEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="123456"
-        android:editable="false"
-        />
+    </ViewAnimator>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:onClick="verifyPhoneNumberWithCode"
-        />
 </LinearLayout>

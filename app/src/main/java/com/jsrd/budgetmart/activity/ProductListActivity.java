@@ -28,11 +28,15 @@ public class ProductListActivity extends AppCompatActivity {
     private RecyclerView productListRecyclerView;
     private ShimmerFrameLayout productListShimmerContainer;
     private Toolbar productListToolbar;
+    private LinearLayout noProductFoundLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
+
+        String category = "";
+        category = getIntent().getStringExtra("Category");
 
         productListToolbar = findViewById(R.id.productListToolbar);
         productListToolbar.setTitle("Product List");
@@ -41,7 +45,7 @@ public class ProductListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-
+        noProductFoundLayout = findViewById(R.id.noProductFoundLayout);
         productListRecyclerView = findViewById(R.id.productListRecyclerView);
         productListRecyclerView.setHasFixedSize(true);
         productListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -50,21 +54,27 @@ public class ProductListActivity extends AppCompatActivity {
 
 
         final FirestoreFirebase ff = new FirestoreFirebase(this);
-        String collection = "Grocery";
 
-        ff.getProductFromFirbase(collection, new ProductCallBack() {
+        ff.getProductFromFirbase(category, new ProductCallBack() {
             @Override
             public void onComplete(final ArrayList<Product> products) {
-                ff.getProductsFromCart(new CartCallBack() {
-                    @Override
-                    public void onComplete(ArrayList<Cart> cartList) {
-                        ProductRecyclerViewListAdapter productAdapter =
-                                new ProductRecyclerViewListAdapter(ProductListActivity.this, products, cartList);
-                        productListRecyclerView.setAdapter(productAdapter);
-                        productListShimmerContainer.stopShimmerAnimation();
-                        productListShimmerContainer.setVisibility(View.GONE);
-                    }
-                });
+                if (products.size() > 0) {
+                    ff.getProductsFromCart(new CartCallBack() {
+                        @Override
+                        public void onComplete(ArrayList<Cart> cartList) {
+                            ProductRecyclerViewListAdapter productAdapter =
+                                    new ProductRecyclerViewListAdapter(ProductListActivity.this, products, cartList);
+                            productListRecyclerView.setAdapter(productAdapter);
+                            productListShimmerContainer.stopShimmerAnimation();
+                            productListShimmerContainer.setVisibility(View.GONE);
+                            noProductFoundLayout.setVisibility(View.GONE);
+                        }
+                    });
+                } else {
+                    productListShimmerContainer.stopShimmerAnimation();
+                    productListShimmerContainer.setVisibility(View.GONE);
+                    noProductFoundLayout.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

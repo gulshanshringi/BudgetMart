@@ -101,7 +101,6 @@ public class SearchFragment extends Fragment {
                                         emptySearchLayout.setVisibility(View.GONE);
                                     }
                                 });
-
                             } else {
                                 searchRecyclerView.setVisibility(View.GONE);
                                 progressBar.setVisibility(View.GONE);
@@ -110,6 +109,7 @@ public class SearchFragment extends Fragment {
                         }
                     });
                 } else if (productName.length() == 0) {
+                    emptySearchLayout.setVisibility(View.GONE);
                     searchRecyclerView.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
                     blankLayout.setVisibility(View.VISIBLE);
@@ -121,7 +121,5 @@ public class SearchFragment extends Fragment {
 
             }
         });
-
-
     }
 }

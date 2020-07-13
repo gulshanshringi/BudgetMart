@@ -41,9 +41,9 @@ public class FirestoreFirebase {
     }
 
 
-    public void getProductFromFirbase(String category, final ProductCallBack callBack) {
+    public void getProductFromFirbase(final String productCategory, final ProductCallBack callBack) {
         final ArrayList<Product> products = new ArrayList<>();
-        db.collection("Products").whereGreaterThanOrEqualTo("Category", category).
+        db.collection("Products").whereGreaterThanOrEqualTo("Category", productCategory).
                 get().
                 addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -54,8 +54,10 @@ public class FirestoreFirebase {
                                 String name = (String) document.get("Name");
                                 String price = (String) document.get("Price");
                                 String image = (String) document.get("Image");
-                                Product product = new Product(productId, name, Integer.parseInt(price), image);
-                                products.add(product);
+                                String category = (String) document.get("Category");
+                                Product product = new Product(productId, name, Integer.parseInt(price), image, category);
+                                if (product.getCategory().contains(productCategory))
+                                    products.add(product);
                             }
                             callBack.onComplete(products);
                         }
@@ -143,7 +145,8 @@ public class FirestoreFirebase {
                                                 String name = (String) document.get("Name");
                                                 String price = (String) document.get("Price");
                                                 String image = (String) document.get("Image");
-                                                Product product = new Product(Integer.parseInt(id), name, Integer.parseInt(price), image);
+                                                String category = (String) document.get("Category");
+                                                Product product = new Product(Integer.parseInt(id), name, Integer.parseInt(price), image,category);
                                                 Cart cart = new Cart(cartId, product, quantity);
                                                 cartList.add(cart);
                                             }
@@ -253,7 +256,8 @@ public class FirestoreFirebase {
                                 String name = (String) document.get("Name");
                                 String price = (String) document.get("Price");
                                 String image = (String) document.get("Image");
-                                Product product = new Product(productId, name, Integer.parseInt(price), image);
+                                String category = (String) document.get("Category");
+                                Product product = new Product(productId, name, Integer.parseInt(price), image,category);
                                 if (product.getName().contains(productName)) {
                                     products.add(product);
                                 }

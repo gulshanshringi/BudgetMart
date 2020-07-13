@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment {
 
         categoryList = new ArrayList<>();
         categoryList.add("Beverages");
-        categoryList.add("Veggies");
+        categoryList.add("Grocery");
         categoryList.add("Bread & Bakery");
         categoryList.add("Frozen Foods");
 

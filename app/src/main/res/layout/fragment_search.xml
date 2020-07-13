@@ -19,6 +19,8 @@
         android:hint="Search"
         android:paddingLeft="10dp"
         android:lines="1"
+        android:background="@drawable/rect_yellow"
+        android:padding="10dp"
         />
 
 
@@ -52,7 +54,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search Somthing"
+            android:text="Search Something"
             android:textColor="@color/colorPrimary"
             android:layout_margin="10dp"
             android:textSize="20dp"/>
