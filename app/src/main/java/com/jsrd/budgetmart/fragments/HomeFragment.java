@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
 
         productRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        String collection = "Products/0/Grocery/";
+        String collection = "Grocery";
         final FirestoreFirebase ff = new FirestoreFirebase(getContext());
         ff.getProductFromFirbase(collection, new ProductCallBack() {
             @Override

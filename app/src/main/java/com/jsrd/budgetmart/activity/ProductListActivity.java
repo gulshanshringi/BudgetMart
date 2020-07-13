@@ -50,7 +50,7 @@ public class ProductListActivity extends AppCompatActivity {
 
 
         final FirestoreFirebase ff = new FirestoreFirebase(this);
-        String collection = "Products/0/Grocery/";
+        String collection = "Grocery";
 
         ff.getProductFromFirbase(collection, new ProductCallBack() {
             @Override

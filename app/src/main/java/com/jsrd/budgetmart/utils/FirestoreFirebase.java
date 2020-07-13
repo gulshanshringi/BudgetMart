@@ -41,9 +41,9 @@ public class FirestoreFirebase {
     }
 
 
-    public void getProductFromFirbase(String coll, final ProductCallBack callBack) {
+    public void getProductFromFirbase(String category, final ProductCallBack callBack) {
         final ArrayList<Product> products = new ArrayList<>();
-        db.collection(coll).
+        db.collection("Products").whereGreaterThanOrEqualTo("Category", category).
                 get().
                 addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -132,7 +132,7 @@ public class FirestoreFirebase {
                                 final String quantity = (String) document.get("Quantity");
 
 
-                                db.collection("Products/").document("0/Grocery/" + productId).
+                                db.collection("Products").document(productId).
                                         get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -210,7 +210,7 @@ public class FirestoreFirebase {
         });
     }
 
-    public void getAddressFromFirebase(final AddressCallBack callBack){
+    public void getAddressFromFirebase(final AddressCallBack callBack) {
         final ArrayList<Cart> cartList = new ArrayList<>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db.collection("users/" + user.getPhoneNumber() + "/Addresses").
@@ -230,11 +230,35 @@ public class FirestoreFirebase {
                                 String country = (String) document.get("Country");
                                 String mobileNo = (String) document.get("Mobile Number");
 
-                                Address address = new Address(addressId,name,add,pincode,city,state,country,mobileNo);
+                                Address address = new Address(addressId, name, add, pincode, city, state, country, mobileNo);
                                 addresses.add(address);
                             }
 
                             callBack.onComplete(addresses);
+                        }
+                    }
+                });
+    }
+
+    public void searchProductFromFirbase(final String productName, final ProductCallBack callBack) {
+        final ArrayList<Product> products = new ArrayList<>();
+        db.collection("Products").whereGreaterThanOrEqualTo("Name", productName).
+                get().
+                addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                int productId = Integer.parseInt(document.getId());
+                                String name = (String) document.get("Name");
+                                String price = (String) document.get("Price");
+                                String image = (String) document.get("Image");
+                                Product product = new Product(productId, name, Integer.parseInt(price), image);
+                                if (product.getName().contains(productName)) {
+                                    products.add(product);
+                                }
+                            }
+                            callBack.onComplete(products);
                         }
                     }
                 });

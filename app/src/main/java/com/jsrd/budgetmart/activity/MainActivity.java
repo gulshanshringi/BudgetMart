@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jsrd.budgetmart.R;
 import com.jsrd.budgetmart.fragments.CartFragment;
-import com.jsrd.budgetmart.fragments.FavoritesFragment;
+import com.jsrd.budgetmart.fragments.SearchFragment;
 import com.jsrd.budgetmart.fragments.HomeFragment;
 import com.jsrd.budgetmart.fragments.AccountFragment;
 
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private HomeFragment homeFragment;
-    private FavoritesFragment favoritesFragment;
+    private SearchFragment searchFragment;
     private CartFragment cartFragment;
     private AccountFragment accountFragment;
     public Toolbar activityMainToolbar;
@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
                         homeFragment = new HomeFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.containerLayout, homeFragment).commit();
                         break;
-                    case R.id.favorites:
-                        favoritesFragment = new FavoritesFragment();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.containerLayout, favoritesFragment).commit();
+                    case R.id.search:
+                        searchFragment = new SearchFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.containerLayout, searchFragment).commit();
                         break;
                     case R.id.cart:
                         cartFragment = new CartFragment();
