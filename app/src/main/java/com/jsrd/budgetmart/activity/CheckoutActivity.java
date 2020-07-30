@@ -83,7 +83,6 @@ public class CheckoutActivity extends AppCompatActivity {
         Sprite threeBounce = new ThreeBounce();
         threeBounce.setColor(Color.RED);
         checkoutProgressBar.setIndeterminateDrawable(threeBounce);
-
         updateBillingDetails();
         setAddress(0);
         setBottomSheetBehavior();
@@ -191,6 +190,7 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     public void showBottomSheet() {
+        addressBottomSheet.setVisibility(View.VISIBLE);
         AddressBottomSheetDialogFragment addressBottomSheetDialogFragment = new AddressBottomSheetDialogFragment();
         addressBottomSheetDialogFragment.show(getSupportFragmentManager(), "AddressBottomSheetDialogFragment");
     }

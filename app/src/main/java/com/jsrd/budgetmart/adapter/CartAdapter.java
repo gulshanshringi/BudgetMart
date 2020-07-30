@@ -160,6 +160,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             @Override
             public void onComplete(ArrayList<Cart> cartList) {
                 cartItems = cartList;
+                notifyDataSetChanged();
                 CartFragment.updateBillingDetails(cartItems);
             }
         });

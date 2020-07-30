@@ -119,7 +119,6 @@ public class ProductRecyclerViewGridAdapter extends RecyclerView.Adapter<Product
                         @Override
                         public void onSuccess(boolean successful) {
                             if (successful) {
-
                                 getProductFromCart();
                             }
                         }
@@ -146,6 +145,7 @@ public class ProductRecyclerViewGridAdapter extends RecyclerView.Adapter<Product
                                     if (successful) {
                                         productWeight.setText(incrementedWeight);
                                         productWeightProgressBar.setVisibility(View.GONE);
+                                        getProductFromCart();
                                     }
                                 }
 
@@ -174,6 +174,7 @@ public class ProductRecyclerViewGridAdapter extends RecyclerView.Adapter<Product
                                     public void onSuccess(boolean successful) {
                                         productWeight.setText(decrementedWeight);
                                         productWeightProgressBar.setVisibility(View.GONE);
+                                        getProductFromCart();
                                     }
 
                                     @Override
@@ -209,6 +210,7 @@ public class ProductRecyclerViewGridAdapter extends RecyclerView.Adapter<Product
                     cartArrayList = cartList;
                     productAddToCartBtn.setVisibility(View.GONE);
                     productIncrDecrLayout.setVisibility(View.VISIBLE);
+                    notifyDataSetChanged();
                 }
             });
         }
