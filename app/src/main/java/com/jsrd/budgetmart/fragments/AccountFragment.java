@@ -60,7 +60,7 @@ public class AccountFragment extends Fragment {
         FirebaseAuth.getInstance().signOut();
         Intent PhoneAuthIntent = new Intent(getContext(), PhoneAuthActivity.class);
         startActivity(PhoneAuthIntent);
-        // finish();
+        getActivity().finish();
     }
 
     private void setUpUserDeatils() {
