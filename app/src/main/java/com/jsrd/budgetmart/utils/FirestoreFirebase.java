@@ -20,6 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.jsrd.budgetmart.interfaces.AddressCallBack;
 import com.jsrd.budgetmart.interfaces.CartCallBack;
 import com.jsrd.budgetmart.interfaces.DataAddedCallBack;
+import com.jsrd.budgetmart.interfaces.OrderCallBack;
 import com.jsrd.budgetmart.interfaces.ProductCallBack;
 import com.jsrd.budgetmart.model.Address;
 import com.jsrd.budgetmart.model.Cart;
@@ -27,6 +28,7 @@ import com.jsrd.budgetmart.model.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FirestoreFirebase {
@@ -146,7 +148,7 @@ public class FirestoreFirebase {
                                                 String price = (String) document.get("Price");
                                                 String image = (String) document.get("Image");
                                                 String category = (String) document.get("Category");
-                                                Product product = new Product(Integer.parseInt(id), name, Integer.parseInt(price), image,category);
+                                                Product product = new Product(Integer.parseInt(id), name, Integer.parseInt(price), image, category);
                                                 Cart cart = new Cart(cartId, product, quantity);
                                                 cartList.add(cart);
                                             }
@@ -257,7 +259,7 @@ public class FirestoreFirebase {
                                 String price = (String) document.get("Price");
                                 String image = (String) document.get("Image");
                                 String category = (String) document.get("Category");
-                                Product product = new Product(productId, name, Integer.parseInt(price), image,category);
+                                Product product = new Product(productId, name, Integer.parseInt(price), image, category);
                                 if (product.getName().contains(productName)) {
                                     products.add(product);
                                 }
@@ -266,6 +268,80 @@ public class FirestoreFirebase {
                         }
                     }
                 });
+    }
+
+    public void placeOrder(final OrderCallBack callBack) {
+        final Map<String, Object> data = new HashMap<>();
+
+        getProductsFromCart(new CartCallBack() {
+            @Override
+            public void onComplete(ArrayList<Cart> cartList) {
+                final List<Map<String, Object>> productDetailsList = new ArrayList<>();
+                for (Cart cart : cartList) {
+                    Map<String, Object> productDetails = new HashMap<>();
+                    productDetails.put("ProductID", cart.getProduct().getId());
+                    productDetails.put("Quantity", cart.getQuantity());
+                    productDetails.put("Price", cart.getProduct().getPrice());
+
+                    productDetailsList.add(productDetails);
+                }
+                db.collection("Orders").document("0").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        int orderID = 0;
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot result = task.getResult();
+                            String lastOrderID = (String) result.get("LastOrderID");
+
+                            if (Integer.parseInt(lastOrderID) == 0) {
+                                orderID = 10001001;
+                            } else {
+                                orderID = Integer.parseInt(lastOrderID) + 1;
+                            }
+                            if (orderID > 0) {
+                                final String finalOrderId = String.valueOf(orderID);
+                                data.put("Products", productDetailsList);
+                                data.put("Status", "Pending");
+                                db.collection("Orders").document("BM" + finalOrderId).set(data).
+                                        addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                db.collection("users/" + user.getPhoneNumber() + "/Orders").
+                                                        document("BM" + finalOrderId).
+                                                        set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        putLastOrderIdToFirestore(finalOrderId, callBack);
+                                                    }
+                                                });
+
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(mContext, "Something went Wrong", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private void putLastOrderIdToFirestore(final String finalOrderId, final OrderCallBack callBack) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("LastOrderID", finalOrderId);
+        db.collection("Orders").document("0").set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                callBack.onComplete("BM" + finalOrderId);
+                Toast.makeText(mContext, "Order Placed Succesfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 

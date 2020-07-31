@@ -60,6 +60,16 @@
         android:background="@color/colorPrimary"
         android:text="Place Order" />
 
+
+    <ProgressBar
+        android:id="@+id/progressBar_paymentAct"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+
+
     <include layout="@layout/order_success_layout" />
 
 </RelativeLayout>
