@@ -51,8 +51,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         StorageFirebase sf = new StorageFirebase(mContext);
         sf.setImageToImageView(cart.getProduct().getImage(), holder.itemImage);
         holder.itemName.setText(cart.getProduct().getName());
-        holder.itemPrice.setText(Integer.toString(cart.getProduct().getPrice()) + " Rs Per kg");
-        holder.itemWeight.setText(cart.getQuantity());
+        holder.itemPrice.setText(cart.getProduct().getPrice() + " Rs Per kg");
+        holder.itemWeight.setText(String.valueOf(cart.getQuantity()));
 
         if (position == cartItems.size()-1){
             CartFragment.updateBillingDetails(cartItems);

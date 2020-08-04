@@ -124,7 +124,7 @@ public class CartFragment extends Fragment {
             int discount;
             int totalPayable;
             for (Cart cart : cartItems) {
-                itemPriceTotal = itemPriceTotal + (Integer.parseInt(cart.getQuantity()) * cart.getProduct().getPrice());
+                itemPriceTotal += (cart.getQuantity() * cart.getProduct().getPrice());
             }
             discount = (itemPriceTotal * (10 / 100));
             totalPayable = itemPriceTotal - discount;

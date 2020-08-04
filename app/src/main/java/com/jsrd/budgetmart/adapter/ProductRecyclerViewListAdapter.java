@@ -66,7 +66,7 @@ public class ProductRecyclerViewListAdapter extends RecyclerView.Adapter<Product
                 if (product.getId() == cart.getProduct().getId()) {
                     holder.itemAddToCartBtn.setVisibility(View.GONE);
                     holder.itemIncrDecrLayout.setVisibility(View.VISIBLE);
-                    holder.itemWeight.setText(cart.getQuantity());
+                    holder.itemWeight.setText(String.valueOf(cart.getQuantity()));
                     break;
                 }
             }

@@ -1,17 +1,18 @@
 package com.jsrd.budgetmart.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.jsrd.budgetmart.R;
-import com.jsrd.budgetmart.fragments.CartFragment;
-import com.jsrd.budgetmart.fragments.SearchFragment;
-import com.jsrd.budgetmart.fragments.HomeFragment;
 import com.jsrd.budgetmart.fragments.AccountFragment;
+import com.jsrd.budgetmart.fragments.CartFragment;
+import com.jsrd.budgetmart.fragments.HomeFragment;
+import com.jsrd.budgetmart.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private CartFragment cartFragment;
     private AccountFragment accountFragment;
     public Toolbar activityMainToolbar;
+
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +35,22 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(activityMainToolbar);
 
         setUpBottomNavigationBar();
-
+        retriveCurrentRegistrationToken();
         homeFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.containerLayout, homeFragment).commit();
     }
 
-    private void setUpBottomNavigationBar(){
+
+    private void retriveCurrentRegistrationToken() {
+        token = FirebaseInstanceId.getInstance().getToken();
+    }
+
+    private void setUpBottomNavigationBar() {
         bottomNavigationView = findViewById(R.id.bottomNavigationBar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
 
                     case R.id.home:
                         homeFragment = new HomeFragment();
@@ -66,7 +74,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 }

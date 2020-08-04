@@ -63,7 +63,7 @@ public class ProductRecyclerViewGridAdapter extends RecyclerView.Adapter<Product
                 if (product.getId() == cart.getProduct().getId()) {
                     holder.productAddToCartBtn.setVisibility(View.GONE);
                     holder.productIncrDecrLayout.setVisibility(View.VISIBLE);
-                    holder.productWeight.setText(cart.getQuantity());
+                    holder.productWeight.setText(String.valueOf(cart.getQuantity()));
                     break;
                 }
             }

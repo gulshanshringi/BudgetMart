@@ -1,12 +1,5 @@
 package com.jsrd.budgetmart.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,14 +8,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.jsrd.budgetmart.R;
-import com.jsrd.budgetmart.adapter.CartAdapter;
 import com.jsrd.budgetmart.fragments.AddressBottomSheetDialogFragment;
 import com.jsrd.budgetmart.interfaces.AddressCallBack;
 import com.jsrd.budgetmart.interfaces.CartCallBack;
@@ -145,7 +140,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 int discount;
                 int totalPayable;
                 for (Cart cart : cartList) {
-                    itemPriceTotal = itemPriceTotal + (Integer.parseInt(cart.getQuantity()) * cart.getProduct().getPrice());
+                    itemPriceTotal = itemPriceTotal + (cart.getQuantity() * cart.getProduct().getPrice());
                 }
                 discount = (itemPriceTotal * (10 / 100));
                 totalPayable = itemPriceTotal - discount;

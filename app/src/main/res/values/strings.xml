@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">BudgetMart</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="CHANNEL_ID" translatable="false">channel_1</string>
+    <string name="CHANNEL_NAME" translatable="false">Order_Completed_Channel</string>
+    <string name="CHANNEL_DESCRIPTION" translatable="false">When Order is placed it notify vender.</string>
+
+
+
 </resources>

@@ -3,9 +3,9 @@ package com.jsrd.budgetmart.model;
 public class Cart {
     private String cartId;
     private Product product;
-    private String quantity;
+    private int quantity;
 
-    public Cart(String cartId, Product product, String quantity) {
+    public Cart(String cartId, Product product, int quantity) {
         this.cartId = cartId;
         this.product = product;
         this.quantity = quantity;
@@ -19,7 +19,7 @@ public class Cart {
         return product;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 }

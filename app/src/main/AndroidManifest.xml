@@ -24,6 +24,21 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.ProductDetailsActivity" />
         <activity android:name=".activity.ProductListActivity" />
+
+        <service
+            android:name=".service.FirebaseCloudMessagingService"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
     </application>
 
 </manifest>

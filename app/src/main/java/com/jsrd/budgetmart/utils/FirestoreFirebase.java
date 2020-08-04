@@ -149,7 +149,7 @@ public class FirestoreFirebase {
                                                 String image = (String) document.get("Image");
                                                 String category = (String) document.get("Category");
                                                 Product product = new Product(Integer.parseInt(id), name, Integer.parseInt(price), image, category);
-                                                Cart cart = new Cart(cartId, product, quantity);
+                                                Cart cart = new Cart(cartId, product, Integer.parseInt(quantity));
                                                 cartList.add(cart);
                                             }
                                             callBack.onComplete(cartList);
@@ -277,14 +277,16 @@ public class FirestoreFirebase {
             @Override
             public void onComplete(ArrayList<Cart> cartList) {
                 final List<Map<String, Object>> productDetailsList = new ArrayList<>();
+                int totalPrice = 0;
                 for (Cart cart : cartList) {
                     Map<String, Object> productDetails = new HashMap<>();
                     productDetails.put("ProductID", cart.getProduct().getId());
                     productDetails.put("Quantity", cart.getQuantity());
                     productDetails.put("Price", cart.getProduct().getPrice());
-
+                    totalPrice += (cart.getQuantity() * cart.getProduct().getPrice());
                     productDetailsList.add(productDetails);
                 }
+                final int totalAmount = totalPrice;
                 db.collection("Orders").document("0").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -300,8 +302,10 @@ public class FirestoreFirebase {
                             }
                             if (orderID > 0) {
                                 final String finalOrderId = String.valueOf(orderID);
+
                                 data.put("Products", productDetailsList);
                                 data.put("Status", "Pending");
+                                data.put("TotalAmount", totalAmount);
                                 db.collection("Orders").document("BM" + finalOrderId).set(data).
                                         addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -315,7 +319,6 @@ public class FirestoreFirebase {
                                                         putLastOrderIdToFirestore(finalOrderId, callBack);
                                                     }
                                                 });
-
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
